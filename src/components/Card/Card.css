@@ -1,0 +1,12 @@
+.cardItem {
+  height: 100%;
+  width: 100%;
+}
+
+img {
+  height: 80%;
+}
+
+.cardItem__texts {
+  height: 20%;
+}

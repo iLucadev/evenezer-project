@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import { Component } from "react";
+import "./assets/tailwind.css";
+import "./styles/App.css";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import HomeContainer from "./containers/HomeContainer";
+import ProductsContainer from "./containers/ProductsContainer";
+import ProductDetailContainer from "./containers/ProductDetailContainer";
+import AboutContainer from "./containers/AboutContainer";
+import CartContainer from "./containers/CartContainer";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Switch>
+        <Route exact path="/">
+          <HomeContainer />
+        </Route>
+
+        <Route exact path="/categories">
+          <ProductsContainer />
+        </Route>
+
+        <Route exact path="/category/:categoryId">
+          <ProductsContainer />
+        </Route>
+
+        <Route exact path="/item/:id">
+          <ProductDetailContainer />
+        </Route>
+
+        <Route exact path="/about">
+          <AboutContainer />
+        </Route>
+
+        <Route exact path="/cart">
+          <CartContainer />
+        </Route>
+
+        <Route path="*" children={<main>Not found</main>} />
+      </Switch>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

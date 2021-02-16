@@ -1,0 +1,11 @@
+a {
+  display: flex;
+}
+
+a svg:hover {
+  color: blueviolet;
+}
+
+a svg {
+  color: black;
+}
