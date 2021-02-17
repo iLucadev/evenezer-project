@@ -34,24 +34,22 @@ const ProductDetailContainer = () => {
 
   if (loading)
     return (
-      <h1 className=" col-span-3 min-h-screen flex justify-center mx-auto full-width ">
-        Loading...
-      </h1>
+      <main className="container py-12 col-span-3 min-h-screen flex flex-col justify-center items-center mx-auto full-width">
+        <h1 className="flex justify-center mx-auto full-width ">Loading...</h1>
+      </main>
     );
 
   return (
-    <section className="container col-span-3 min-h-screen flex flex-col justify-center items-center mx-auto full-width">
-      <ItemDetail products={products} />
-      <ItemCount
+    <main className="container col-span-3 min-h-screen flex flex-col mx-auto full-width">
+      <ItemDetail
+        products={products}
         stock={12}
         contador={contador}
         onAdd={onAdd}
         onSubstract={onSubstract}
       />
-    </section>
+    </main>
   );
-
-  return <main></main>;
 };
 
 export default ProductDetailContainer;

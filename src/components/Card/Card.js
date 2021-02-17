@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 const Card = ({ product }) => {
   return (
     <Link to={`/item/:id`}>
-      <div className="cardItem container flex flex-col justify-between rounded-md">
+      <div className="cardItem container flex flex-col border rounded p-2">
         <img className="cardItem__img" src={product.images[0].url} alt="" />
-        <div className="cardItem__texts flex flex-col justify-between p-3">
+        <div className="cardItem__texts flex flex-col justify-between">
           <h2 className="cardItem__title">{product.name}</h2>
-          <p className="cardItem__price flex justify-end">${product.price}</p>
+          <p className="cardItem__price flex justify-end">
+            Price: ${product.price}
+          </p>
         </div>
       </div>
     </Link>
