@@ -17,7 +17,7 @@ const Header = () => {
             <Link to={`/about`}>About</Link>
           </li>
           <li>
-            <Link to={`/categories`}>Categories</Link>
+            <Link to={`/category/all`}>Categories</Link>
           </li>
           <li className="flex justify-between items-center">
             <Link to={`/cart`}>

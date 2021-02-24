@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Card.css";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../../store/GlobalContext";
 
 const Card = ({ product }) => {
   return (
-    <Link to={`/item/:id`}>
+    <Link to={`/item/${product.id}`}>
       <div className="cardItem container flex flex-col border rounded p-2">
         <img className="cardItem__img" src={product.images[0].url} alt="" />
         <div className="cardItem__texts flex flex-col justify-between">

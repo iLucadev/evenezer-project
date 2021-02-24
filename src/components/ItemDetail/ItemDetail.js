@@ -1,27 +1,20 @@
 import React from "react";
 import ItemCount from "../ItemCount/ItemCount";
+import DetailCarousel from "../DetailCarousel/DetailCarousel";
 
-const ItemDetail = ({ products, contador, stock, onAdd, onSubstract }) => {
+const ItemDetail = ({ product }) => {
   return (
     <div
       id="ItemDetail"
-      className="container p-10 ItemDetail flex justify-between border rounded full-width"
+      className="p-10 ItemDetail flex justify-between border rounded full-width"
     >
-      <div className="ItemDetail__images w-1/2">
-        <img className="ItemDetail__img" src={products.images[0].url} alt="" />
-      </div>
-      <div className="ItemDetail__texts space-y-4 w-1/2 flex flex-col">
-        <div>
-          <h2 className="font-semibold">{products.name}</h2>
-          <p>{products.description_es}</p>
-        </div>
+      <DetailCarousel product={product} />
 
-        <ItemCount
-          stock={12}
-          contador={contador}
-          onAdd={onAdd}
-          onSubstract={onSubstract}
-        />
+      <div className="ItemDetail__texts space-y-6 w-1/2 flex flex-col">
+        <h2 className="font-semibold">{product.name}</h2>
+        <p>{product.description_es}</p>
+
+        <ItemCount stock={product.stock} />
       </div>
     </div>
   );

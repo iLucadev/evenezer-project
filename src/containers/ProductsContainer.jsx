@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ItemList from "../components/ItemList/ItemList";
 import Categories from "../components/Categories/Categories";
+import { GlobalContext } from "../store/GlobalContext";
 
 const ProductsContainer = () => {
-  const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
+  const { products, loading } = useContext(GlobalContext);
+  const [categories, setCategories] = useState(["All"]);
 
   useEffect(() => {
-    fetch("https://ecommercegaminghub.herokuapp.com/products/")
-      .then((res) => res.json())
-      .then((res) => {
-        setProducts(res.results);
-        setLoading(false);
-        console.log(res.results);
-      });
-  }, []);
-
-  /* useEffect(() => {
-    const myPromise = new Promise((resolve, reject) => {
-      setTimeout(() => resolve(productsList), 2000);
+    const categories = products.map((element) => {
+      return element.category;
     });
-    myPromise.then((result) => setProducts(result));
-  }, []); */
+  }, []);
 
   if (loading)
     return (

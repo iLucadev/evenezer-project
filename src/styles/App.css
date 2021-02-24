@@ -8,14 +8,27 @@
   padding: 0;
 }
 
+#root {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
 header {
   height: 10vh;
+  grid-area: "header";
 }
 
 main {
   min-height: 80vh;
+  grid-area: "main";
 }
 
 footer {
   height: 15vh;
+  grid-area: "footer";
 }
