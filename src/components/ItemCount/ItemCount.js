@@ -1,5 +1,6 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../store/CartContext";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -13,8 +14,9 @@ const reducer = (state, action) => {
   return state;
 };
 
-const ItemCount = ({ stock }) => {
+const ItemCount = ({ product, stock }) => {
   const [counter, dispatch] = useReducer(reducer, 1);
+  const { addToCart } = useContext(CartContext);
 
   return (
     <div className="container flex flex-col items-center space-y-4">
@@ -53,6 +55,7 @@ const ItemCount = ({ stock }) => {
 
       <Link to="/cart">
         <button
+          onClick={() => addToCart(product.id, counter)}
           className="py-2 px-4 font-semibold rounded-lg text-white bg-green-500 hover:bg-green-700"
           type=""
         >

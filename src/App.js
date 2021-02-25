@@ -25,6 +25,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Context
 import { GlobalContext, GlobalProvider } from "./store/GlobalContext";
+import { CartContext, CartProvider } from "./store/CartContext";
 
 /*--------------------------------- Aplication ----------------------------------*/
 
@@ -32,28 +33,25 @@ function App() {
   return (
     <GlobalProvider>
       <BrowserRouter>
-        <Header />
         <Switch>
-          <Route exact path="/">
-            <HomeContainer />
-          </Route>
-
-          <Route exact path="/category/:categoryId">
-            <ProductsContainer />
-          </Route>
-
-          <Route exact path="/item/:id">
-            <ProductDetailContainer />
-          </Route>
-
+          <CartProvider>
+            <Header />
+            <Route exact path="/">
+              <HomeContainer />
+            </Route>
+            <Route exact path="/category/:categoryId">
+              <ProductsContainer />
+            </Route>
+            <Route exact path="/item/:id">
+              <ProductDetailContainer />
+            </Route>
+            <Route exact path="/cart">
+              <CartContainer />
+            </Route>
+          </CartProvider>
           <Route exact path="/about">
             <AboutContainer />
           </Route>
-
-          <Route exact path="/cart">
-            <CartContainer />
-          </Route>
-
           <Route path="*" children={<main>Not found</main>} />
         </Switch>
         <Footer />

@@ -6,7 +6,6 @@ export const GlobalProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
-  console.log(products);
   useEffect(() => {
     fetch("https://ecommercegaminghub.herokuapp.com/products/")
       .then((res) => res.json())

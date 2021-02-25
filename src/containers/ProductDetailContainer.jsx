@@ -26,22 +26,6 @@ const ProductDetailContainer = () => {
         }
       });
 
-  /* const [contador, setContador] = useState(1); */
-
-  /* const onAdd = (stock) => {
-    if (contador < stock) {
-      setContador(contador + 1);
-    } else {
-      console.log("no hay stock");
-    }
-  };
-
-  const onSubstract = () => {
-    if (contador > 0) {
-      setContador(contador - 1);
-    }
-  }; */
-
   return (
     <main className="container py-12  min-h-screen flex flex-col mx-auto full-width">
       <ItemDetail product={selectedProduct} param={id} />
