@@ -19,6 +19,7 @@ import ProductsContainer from "./containers/ProductsContainer";
 import ProductDetailContainer from "./containers/ProductDetailContainer";
 import AboutContainer from "./containers/AboutContainer";
 import CartContainer from "./containers/CartContainer";
+import CheckoutContainer from "./containers/CheckoutContainer";
 
 //React Router
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -33,9 +34,9 @@ function App() {
   return (
     <GlobalProvider>
       <BrowserRouter>
+        <Header />
         <Switch>
           <CartProvider>
-            <Header />
             <Route exact path="/">
               <HomeContainer />
             </Route>
@@ -47,6 +48,9 @@ function App() {
             </Route>
             <Route exact path="/cart">
               <CartContainer />
+            </Route>
+            <Route exact path="/checkout">
+              <CheckoutContainer />
             </Route>
           </CartProvider>
           <Route exact path="/about">

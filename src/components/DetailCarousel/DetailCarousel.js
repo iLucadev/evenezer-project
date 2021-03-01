@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const DetailCarousel = ({ product }) => {
-  const [current, setCurrent] = useState(product.images[0].url);
+  const [current, setCurrent] = useState(product.image[0].url);
 
   const selectedImg = (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const DetailCarousel = ({ product }) => {
             />
           </svg>
         </button>
-        {product.images.map((image) => {
+        {product.image.map((image) => {
           return (
             <button onClick={selectedImg} key={image.id} type="">
               <img className="h-full" src={image.url} alt="" width="120px" />

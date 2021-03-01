@@ -12,7 +12,7 @@ const ItemDetail = ({ product }) => {
 
       <div className="ItemDetail__texts space-y-6 w-1/2 flex flex-col">
         <h2 className="font-semibold">{product.name}</h2>
-        <p>{product.description_es}</p>
+        <p>{product.description}</p>
 
         <ItemCount product={product} stock={product.stock} />
       </div>

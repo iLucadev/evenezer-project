@@ -55,7 +55,7 @@ const ItemCount = ({ product, stock }) => {
 
       <Link to="/cart">
         <button
-          onClick={() => addToCart(product.id, counter)}
+          onClick={() => addToCart(product, counter)}
           className="py-2 px-4 font-semibold rounded-lg text-white bg-green-500 hover:bg-green-700"
           type=""
         >

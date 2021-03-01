@@ -7,7 +7,7 @@ const Card = ({ product }) => {
   return (
     <Link to={`/item/${product.id}`}>
       <div className="cardItem container flex flex-col border rounded p-2">
-        <img className="cardItem__img" src={product.images[0].url} alt="" />
+        <img className="cardItem__img" src={product.image} alt="" />
         <div className="cardItem__texts flex flex-col justify-between">
           <h2 className="cardItem__title">{product.name}</h2>
           <p className="cardItem__price flex justify-end">

@@ -1,41 +1,81 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [storedCart, setStoredCart] = useLocalStorage("cart", []);
+  const [cart, setCart] = useState(storedCart);
 
-  const isInCart = (id) => {
-    console.log(cart.some((product) => product.item == id));
-    return cart.some((product) => product.id == id);
-  };
+  //Comunicación con el localStorage
+  useEffect(() => setStoredCart(cart), [cart]);
 
+  //Añadir elemento al carrito
   const addToCart = (itemToAdd, itemQuantity) => {
+    console.log(cart);
+
     if (isInCart(itemToAdd)) {
-      cart.find((element) => (element.quantity += itemQuantity));
+      const duplicatedElement = cart.find(
+        (element) => element.id == itemToAdd.id
+      );
+
+      const actualizedElement = {
+        id: duplicatedElement.id,
+        name: duplicatedElement.name,
+        quantity: (duplicatedElement.quantity += itemQuantity),
+      };
+
+      const actualizedCart = cart.filter(
+        (element) => element.id !== duplicatedElement.id
+      );
+
+      const newCart = [actualizedElement, ...actualizedCart];
+
+      setCart(newCart);
+      ///
     } else {
-      setCart([
-        ...cart,
-        {
-          item: itemToAdd,
-          quantity: itemQuantity,
-        },
-      ]);
+      const newElement = {
+        id: itemToAdd.id,
+        name: itemToAdd.name,
+        quantity: itemQuantity,
+      };
+
+      const newCart = [newElement, ...cart];
+
+      setCart(newCart);
     }
+
+    console.log(isInCart(itemToAdd));
   };
 
-  const deleteCartItem = () => {};
+  //Validación por duplicación
+  const isInCart = (item) => {
+    return cart.some((element) => element.id == item.id);
+  };
 
-  const emptyCart = () => {};
+  //Eliminar item del carrito
+  const deleteCartItem = (itemToDelete) => {
+    const changedCart = cart.filter(
+      (element) => element.id !== itemToDelete.id
+    );
+  };
 
-  const buyNow = () => {}; ///
+  //Vaciar carrito
+  const emptyCart = () => {
+    setCart([]);
+  };
+
+  //Comprar ya
+  const buyNow = (itemToBuy) => {
+    setCart([itemToBuy]);
+  };
 
   console.log(cart);
+
   return (
     <CartContext.Provider
       value={{
         cart,
-        isInCart,
         addToCart,
         deleteCartItem,
         emptyCart,
