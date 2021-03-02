@@ -1,20 +1,13 @@
 import React from "react";
+import CheckoutCard from "../CheckoutCard/CheckoutCard";
 
 const Checkout = ({ cart }) => {
   return (
-    <div>
-      <h2 className="font-semibold">Checkout</h2>
-      <section>
-        {cart.map((cartItem) => {
-          return (
-            <div key={cartItem.id}>
-              <h3>{cartItem.name}</h3>
-              <p>{cartItem.price}</p>
-            </div>
-          );
-        })}
-      </section>
-    </div>
+    <section className="container flex flex-column h-4/5">
+      {cart.map((cartItem) => {
+        return <CheckoutCard key={cartItem.id} cartItem={cartItem} />;
+      })}
+    </section>
   );
 };
 
