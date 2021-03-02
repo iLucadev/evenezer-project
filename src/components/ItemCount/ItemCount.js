@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../store/CartContext";
 
@@ -14,16 +14,37 @@ const reducer = (state, action) => {
   return state;
 };
 
-const ItemCount = ({ product, stock }) => {
+const ItemCount = ({ product, sizes }) => {
   const [counter, dispatch] = useReducer(reducer, 1);
+  const [sizeValue, setSizeValue] = useState(sizes[0].valor);
+  const [stock, setStock] = useState(sizes[0].stock);
   const { addToCart } = useContext(CartContext);
+
+  const selectedSize = (e) => {
+    const newSize = sizes.find((element) => element.valor == e.target.value);
+    setSizeValue(newSize.valor);
+  };
+
+  useEffect(() => {
+    const selectedElement = sizes.find((element) => element.valor == sizeValue);
+    setStock(selectedElement.stock);
+  }, [sizeValue]);
 
   return (
     <div className="container flex flex-col items-center space-y-4">
       <div className="flex justify-between items-center  w-full">
         <div className="flex flex-col justify-center w-1/2">
+          <div>
+            <label>Talle</label>
+            <select onChange={selectedSize}>
+              {sizes.map((size, index) => {
+                return <option key={index}>{size.valor}</option>;
+              })}
+            </select>
+          </div>
+          <p>Stock: {stock}</p>
           <p>Quantity</p>
-          <p>stock: {stock}</p>
+          <p>Price: ${product.price}</p>
         </div>
 
         <div className="container grid grid-cols-3 gap-4 py-3 px-6">

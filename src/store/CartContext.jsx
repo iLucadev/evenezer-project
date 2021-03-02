@@ -58,6 +58,7 @@ export const CartProvider = ({ children }) => {
     const changedCart = cart.filter(
       (element) => element.id !== itemToDelete.id
     );
+    setCart(changedCart);
   };
 
   //Vaciar carrito

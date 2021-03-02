@@ -5,13 +5,6 @@ import { GlobalContext } from "../store/GlobalContext";
 
 const ProductsContainer = () => {
   const { products, loading } = useContext(GlobalContext);
-  const [categories, setCategories] = useState(["All"]);
-
-  useEffect(() => {
-    const categories = products.map((element) => {
-      return element.category;
-    });
-  }, []);
 
   if (loading)
     return (

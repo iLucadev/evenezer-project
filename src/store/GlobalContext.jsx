@@ -38,7 +38,6 @@ export const GlobalProvider = ({ children }) => {
           return element.data();
         });
 
-        console.log(aux);
         setProducts(aux);
       })
       .catch((error) => {

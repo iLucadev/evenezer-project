@@ -2,7 +2,9 @@ import React from "react";
 import ItemCount from "../ItemCount/ItemCount";
 import DetailCarousel from "../DetailCarousel/DetailCarousel";
 
-const ItemDetail = ({ product }) => {
+const ItemDetail = ({ product, param, sizes }) => {
+  console.log(product);
+
   return (
     <div
       id="ItemDetail"
@@ -14,7 +16,7 @@ const ItemDetail = ({ product }) => {
         <h2 className="font-semibold">{product.name}</h2>
         <p>{product.description}</p>
 
-        <ItemCount product={product} stock={product.stock} />
+        <ItemCount product={product} sizes={sizes} />
       </div>
     </div>
   );

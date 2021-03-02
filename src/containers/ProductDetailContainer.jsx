@@ -26,9 +26,18 @@ const ProductDetailContainer = () => {
         }
       });
 
+  /*   const stock = selectedProduct.size
+    .map((element) => element.stock)
+    .reduce((sum, current) => sum + current, 0);
+  console.log(stock); */
+
+  const sizes = selectedProduct.size.map((element) => {
+    return element;
+  });
+
   return (
     <main className="container py-12  min-h-screen flex flex-col mx-auto full-width">
-      <ItemDetail product={selectedProduct} param={id} />
+      <ItemDetail product={selectedProduct} param={id} sizes={sizes} />
     </main>
   );
 };
