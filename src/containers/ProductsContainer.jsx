@@ -8,15 +8,13 @@ const ProductsContainer = () => {
 
   if (loading)
     return (
-      <main className="container mx-auto py-12 full-width">
-        <h1 className=" min-h-screen flex justify-center mx-auto full-width ">
-          Loading...
-        </h1>
+      <main className="container mx-auto full-width">
+        <h1 className="flex justify-center mx-auto full-width ">Loading...</h1>
       </main>
     );
 
   return (
-    <main className="container mx-auto py-12 grid grid-cols-6">
+    <main className="container mx-auto grid grid-cols-6">
       <Categories />
 
       <ItemList products={products} />

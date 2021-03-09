@@ -1,11 +1,15 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { getFirestore } from "../firebase";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { GlobalContext } from "./GlobalContext";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [storedCart, setStoredCart] = useLocalStorage("cart", []);
   const [cart, setCart] = useState(storedCart);
+
+  const { loading } = useContext(GlobalContext);
 
   //Comunicación con el localStorage
   useEffect(() => setStoredCart(cart), [cart]);
@@ -38,6 +42,7 @@ export const CartProvider = ({ children }) => {
         id: itemToAdd.id,
         name: itemToAdd.name,
         quantity: itemQuantity,
+        price: itemToAdd.price,
       };
 
       const newCart = [newElement, ...cart];
@@ -67,11 +72,50 @@ export const CartProvider = ({ children }) => {
   };
 
   //Comprar ya
-  const buyNow = (itemToBuy) => {
-    setCart([itemToBuy]);
+  const buyNow = (buyer, cart) => {
+    const date = new Date().toLocaleString("en-US", {
+      timeZone: "America/Argentina/Buenos_Aires",
+    });
+
+    const buyTotal = cart.reduce((acc, cur) => {
+      return acc.price * acc.quantity + cur.price * cur.quantity;
+    });
+
+    /* const total =
+    cart.length == 0
+      ? 0
+      : cart.reduce((prev, cur) => {
+          return prev + cur.quantity * cur.price;
+        }); */
+
+    const newBuy = { buyer: buyer, items: cart, date: date, total: buyTotal };
+    console.log(newBuy);
+
+    checkOut(newBuy);
   };
 
-  console.log(cart);
+  //Finalizar compra
+  const checkOut = async (buyOrder) => {
+    if (!loading) {
+      const db = getFirestore();
+
+      const ordersCollection = db.collection("Orders");
+      ordersCollection.add(buyOrder).then(() => console.log("exito"));
+    }
+  };
+
+  /* const checkOut = async () => {
+
+    let newOrder = {buyer: {name:, email:, phone:}, items: [...cart], total:}
+    const db = getFirestore()
+    const orders = db.collection("Orders");
+    orders.add(newOrder).then((value) => {
+      console.log("xd")
+    
+      orders.doc("").update({total:3000})
+    })
+  }
+ */
 
   return (
     <CartContext.Provider

@@ -6,7 +6,7 @@ const ItemList = ({ products }) => {
   return (
     <section
       id="ItemList"
-      className="container col-2 col-span-5 grid grid-cols-4 grid-rows-2 gap-4 justify-center full-width"
+      className="container col-2 col-span-5 grid grid-cols-4 grid-flow-row auto-rows-min gap-4 justify-center full-width"
     >
       {products.map((product) => {
         return <Card key={product.id} product={product} />;

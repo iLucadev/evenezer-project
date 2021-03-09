@@ -10,8 +10,8 @@ const ProductDetailContainer = () => {
 
   if (loading) {
     return (
-      <main className="container mx-auto py-12 full-width">
-        <h1 className=" min-h-screen flex justify-center mx-auto full-width ">
+      <main className="container mx-auto full-width">
+        <h1 className="min-h-screen flex justify-center mx-auto full-width ">
           Loading...
         </h1>
       </main>
@@ -26,17 +26,12 @@ const ProductDetailContainer = () => {
         }
       });
 
-  /*   const stock = selectedProduct.size
-    .map((element) => element.stock)
-    .reduce((sum, current) => sum + current, 0);
-  console.log(stock); */
-
   const sizes = selectedProduct.size.map((element) => {
     return element;
   });
 
   return (
-    <main className="container py-12  min-h-screen flex flex-col mx-auto full-width">
+    <main className="container flex flex-col mx-auto full-width">
       <ItemDetail product={selectedProduct} param={id} sizes={sizes} />
     </main>
   );

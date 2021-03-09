@@ -6,19 +6,18 @@ const ItemDetail = ({ product, param, sizes }) => {
   console.log(product);
 
   return (
-    <div
+    <section
       id="ItemDetail"
-      className="p-10 ItemDetail flex justify-between border rounded full-width"
+      className="ItemDetail flex justify-between h-5/6 full-width"
     >
       <DetailCarousel product={product} />
 
-      <div className="ItemDetail__texts space-y-6 w-1/2 flex flex-col">
+      <div className="ItemDetail__texts w-1/2 py-6">
         <h2 className="font-semibold">{product.name}</h2>
-        <p>{product.description}</p>
-
+        <p className="">{product.description}</p>
         <ItemCount product={product} sizes={sizes} />
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -31,8 +31,8 @@ const ItemCount = ({ product, sizes }) => {
   }, [sizeValue]);
 
   return (
-    <div className="container flex flex-col items-center space-y-4">
-      <div className="flex justify-between items-center  w-full">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="flex justify-between items-center w-full">
         <div className="flex flex-col justify-center w-1/2">
           <div>
             <label>Talle</label>
@@ -47,7 +47,7 @@ const ItemCount = ({ product, sizes }) => {
           <p>Price: ${product.price}</p>
         </div>
 
-        <div className="container grid grid-cols-3 gap-4 py-3 px-6">
+        <div className="grid grid-cols-3 gap-4 py-3 px-6">
           {counter > 1 ? (
             <button
               onClick={() => dispatch({ type: "decrement" })}

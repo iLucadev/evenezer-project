@@ -9,8 +9,8 @@ const DetailCarousel = ({ product }) => {
   };
 
   return (
-    <section className="flex justify-between w-1/2">
-      <div className="flex flex-col space-y-4">
+    <div className=" col-span-3 row-span-6 flex justify-between">
+      <div className="flex flex-col justify-between space-y-4 h-full">
         <button className="flex justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,12 @@ const DetailCarousel = ({ product }) => {
         {product.image.map((image) => {
           return (
             <button onClick={selectedImg} key={image.id} type="">
-              <img className="h-full" src={image.url} alt="" width="120px" />
+              <img
+                className="object-cover h-full"
+                src={image.url}
+                alt=""
+                width="120px"
+              />
             </button>
           );
         })}
@@ -53,9 +58,14 @@ const DetailCarousel = ({ product }) => {
       </div>
 
       <div className="flex justify-center items-center space-x-4 w-4/5">
-        <img className="flex h-full" src={current} alt="" width="75%" />
+        <img
+          className="flex object-cover h-full"
+          src={current}
+          alt=""
+          width="75%"
+        />
       </div>
-    </section>
+    </div>
   );
 };
 
