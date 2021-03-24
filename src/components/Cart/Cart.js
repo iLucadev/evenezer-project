@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "../../store/GlobalContext";
 import "./Cart.css";
 const Cart = () => {
+  const { cartLength } = useContext(GlobalContext);
+
   return (
-    <>
-      <a href="#" className="shopCart">
+    <div className="relative">
+      <a href="#" className="shopCart relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          height="22px"
+          height="24px"
         >
           <path
             strokeLinecap="round"
@@ -19,7 +22,10 @@ const Cart = () => {
           />
         </svg>
       </a>
-    </>
+      <span className="absolute bottom-3 left-4 bg-red-600 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+        {cartLength}
+      </span>
+    </div>
   );
 };
 

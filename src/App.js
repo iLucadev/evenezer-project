@@ -20,6 +20,8 @@ import ProductDetailContainer from "./containers/ProductDetailContainer";
 import AboutContainer from "./containers/AboutContainer";
 import CartContainer from "./containers/CartContainer";
 import CheckoutContainer from "./containers/CheckoutContainer";
+import UserContainer from "./containers/UserContainer";
+import ContactContainer from "./containers/ContactContainer";
 
 //React Router
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -37,25 +39,29 @@ function App() {
         <Header />
         <Switch>
           <CartProvider>
-            <Route exact path="/">
-              <HomeContainer />
-            </Route>
-            <Route exact path="/category/:categoryId">
-              <ProductsContainer />
-            </Route>
-            <Route exact path="/item/:id">
-              <ProductDetailContainer />
-            </Route>
-            <Route exact path="/cart">
-              <CartContainer />
-            </Route>
-            <Route exact path="/checkout">
-              <CheckoutContainer />
-            </Route>
+            <Route exact path="/" component={HomeContainer} />
+
+            <Route
+              exact
+              path="/category/:categoryId"
+              component={ProductsContainer}
+            />
+
+            <Route
+              exact
+              path="/items/:itemId"
+              component={ProductDetailContainer}
+            />
+
+            <Route exact path="/cart" component={CartContainer} />
+
+            <Route exact path="/checkout" component={CheckoutContainer} />
+
+            <Route exact path="/user/:username" component={UserContainer} />
           </CartProvider>
-          <Route exact path="/about">
-            <AboutContainer />
-          </Route>
+          <Route exact path="/about" component={AboutContainer} />
+          <Route exact path="/contact" component={ContactContainer} />
+
           <Route path="*" children={<main>Not found</main>} />
         </Switch>
         <Footer />

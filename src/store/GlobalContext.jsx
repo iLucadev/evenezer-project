@@ -6,6 +6,8 @@ export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [cartLength, setCartLength] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -33,8 +35,10 @@ export const GlobalProvider = ({ children }) => {
         setLoading(false);
       });
 
-    /*  const categories = db.collection("Categories");
+    //saving the collection reference who we want to take
+    const categories = db.collection("Categories");
 
+    //taking collection data
     categories
       .get()
       .then((value) => {
@@ -43,9 +47,9 @@ export const GlobalProvider = ({ children }) => {
         }
 
         let aux = value.docs.map((element) => {
-          return element.data();
+          return { ...element.data(), id: element.id };
         });
-        console.log(aux);
+
         setCategories(aux);
       })
       .catch((error) => {
@@ -53,11 +57,13 @@ export const GlobalProvider = ({ children }) => {
       })
       .finally(() => {
         setLoading(false);
-      }); */
+      });
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ products, loading }}>
+    <GlobalContext.Provider
+      value={{ products, loading, categories, cartLength, setCartLength }}
+    >
       {children}
     </GlobalContext.Provider>
   );

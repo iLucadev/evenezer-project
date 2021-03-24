@@ -6,7 +6,7 @@ import { GlobalContext } from "../store/GlobalContext";
 
 const ProductDetailContainer = () => {
   const { products, loading } = useContext(GlobalContext);
-  const { id } = useParams();
+  const { itemId } = useParams();
 
   if (loading) {
     return (
@@ -21,7 +21,7 @@ const ProductDetailContainer = () => {
   const selectedProduct = loading
     ? null
     : products.find((element) => {
-        if (element.id == id) {
+        if (element.id == itemId) {
           return element;
         }
       });
@@ -32,7 +32,7 @@ const ProductDetailContainer = () => {
 
   return (
     <main className="container flex flex-col mx-auto full-width">
-      <ItemDetail product={selectedProduct} param={id} sizes={sizes} />
+      <ItemDetail product={selectedProduct} param={itemId} sizes={sizes} />
     </main>
   );
 };

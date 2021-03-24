@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
   const [storedCart, setStoredCart] = useLocalStorage("cart", []);
   const [cart, setCart] = useState(storedCart);
 
-  const { loading } = useContext(GlobalContext);
+  const { loading, setCartLength } = useContext(GlobalContext);
 
   //Comunicación con el localStorage
   useEffect(() => setStoredCart(cart), [cart]);
@@ -49,9 +49,11 @@ export const CartProvider = ({ children }) => {
 
       setCart(newCart);
     }
-
-    console.log(isInCart(itemToAdd));
   };
+
+  //Detectar cantidad de elementos
+
+  useEffect(() => setCartLength(cart.length), [cart]);
 
   //Validación por duplicación
   const isInCart = (item) => {
@@ -81,16 +83,8 @@ export const CartProvider = ({ children }) => {
       return acc.price * acc.quantity + cur.price * cur.quantity;
     });
 
-    /* const total =
-    cart.length == 0
-      ? 0
-      : cart.reduce((prev, cur) => {
-          return prev + cur.quantity * cur.price;
-        }); */
-
     const newBuy = { buyer: buyer, items: cart, date: date, total: buyTotal };
-    console.log(newBuy);
-
+    emptyCart();
     checkOut(newBuy);
   };
 
@@ -103,19 +97,6 @@ export const CartProvider = ({ children }) => {
       ordersCollection.add(buyOrder).then(() => console.log("exito"));
     }
   };
-
-  /* const checkOut = async () => {
-
-    let newOrder = {buyer: {name:, email:, phone:}, items: [...cart], total:}
-    const db = getFirestore()
-    const orders = db.collection("Orders");
-    orders.add(newOrder).then((value) => {
-      console.log("xd")
-    
-      orders.doc("").update({total:3000})
-    })
-  }
- */
 
   return (
     <CartContext.Provider
