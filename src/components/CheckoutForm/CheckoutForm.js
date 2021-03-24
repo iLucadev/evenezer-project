@@ -1,22 +1,56 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import validate from "../../hooks/validateInfo";
 
 const CheckoutForm = ({ buyNow, cart }) => {
   const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
-  /*   const [buyer, setBuyer] = useState({ name: "", email: "", phone: "" });
+  const [buyer, setBuyer] = useState({ name: "", email: "", phone: "" });
 
-  if (!valuesAreEmpty && errorsIsEmpty == 0) {
-    setBuyer({
-      ...buyer,
-      name: values.username,
-      email: values.email,
-      phone: values.phone,
-    });
+  useEffect(() => {
+    const valuesAreEmpty = !Object.values(values).some(
+      (x) => x !== null && x !== ""
+    );
 
-    buyNow(buyer, cart);
-  } */
+    const errorsIsEmpty = Object.keys(errors).length;
+
+    console.log(errors);
+    console.log(valuesAreEmpty);
+    console.log(errorsIsEmpty);
+
+    if (valuesAreEmpty && errorsIsEmpty == 0) {
+      detectingErrors(true);
+    }
+    if (!valuesAreEmpty && errorsIsEmpty > 0) {
+      detectingErrors(true);
+    }
+    if (!valuesAreEmpty && errorsIsEmpty == 0) {
+      detectingErrors(false);
+    }
+  }, [errors]);
+
+  const detectingErrors = (value) => {
+    if (value == false) {
+      setBuyer({
+        ...buyer,
+        name: values.username,
+        email: values.email,
+        phone: values.phone,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const buyerDataValidation = !Object.values(buyer).some(
+      (x) => x !== null && x !== ""
+    );
+    console.log(buyerDataValidation);
+
+    if (buyerDataValidation == false) {
+      buyNow(buyer, cart);
+    }
+  });
 
   return (
     <section className="row-span-5">
@@ -89,13 +123,15 @@ const CheckoutForm = ({ buyNow, cart }) => {
             <span className="text-red-500 w-1/4">{errors.phone}</span>
           )}
         </div>
-        <button
-          type="button"
-          onClick={() => handleSubmit()}
-          className="form-input-btn flex justify-center items-center mx-auto w-1/4 h-10 font-semibold text-white bg-purple-600 hover:bg-purple-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
-        >
-          Checkout
-        </button>
+        <div className="flex">
+          <button
+            type="button"
+            onClick={() => handleSubmit()}
+            className="form-input-btn flex justify-center items-center mx-auto w-1/4 h-10 font-semibold text-white bg-purple-600 hover:bg-purple-700 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
+          >
+            Checkout
+          </button>
+        </div>
       </form>
     </section>
   );

@@ -3,8 +3,6 @@ import ItemCount from "../ItemCount/ItemCount";
 import DetailCarousel from "../DetailCarousel/DetailCarousel";
 
 const ItemDetail = ({ product, param, sizes }) => {
-  console.log(product);
-
   return (
     <section
       id="ItemDetail"

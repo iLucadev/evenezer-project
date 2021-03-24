@@ -1,8 +1,10 @@
 import React, { useEffect, useContext } from "react";
+import { CartContext } from "../../store/CartContext";
 import { GlobalContext } from "../../store/GlobalContext";
 
 const CheckoutCard = ({ cartItem }) => {
   const { loading, products } = useContext(GlobalContext);
+  const { deleteCartItem } = useContext(CartContext);
 
   if (loading) {
     return (
@@ -21,7 +23,7 @@ const CheckoutCard = ({ cartItem }) => {
 
   return (
     <div
-      className="p-2 max-w-md flex items-center space-x-6"
+      className="p-2 w-4/5 flex items-center space-x-3"
       key={checkoutElement.id}
     >
       <div className="flex items-center">
@@ -32,19 +34,22 @@ const CheckoutCard = ({ cartItem }) => {
           alt=""
         />
       </div>
-      <div className="flex-col justify-center w">
+      <div className="flex-col justify-center w-56 ">
         <h3 className="text-lg font-semibold text-black">
           {checkoutElement.name}
         </h3>
-        <p className="w-56 text-sm text-gray-500">
+        <p className=" h-12 overflow-hidden text-sm text-gray-500">
           {checkoutElement.description}
         </p>
       </div>
-      <div className="flex justify-between items-center space-x-6">
+      <div className="flex w-56 justify-between items-center space-x-6">
         <span className="text-md text-gray-500">X{cartItem.quantity}</span>
         <span className="text-md font-semibold text-black">
           {formatter.format(checkoutElement.price * cartItem.quantity)}
         </span>
+        <button type="button" onClick={() => deleteCartItem(checkoutElement)}>
+          X
+        </button>
       </div>
     </div>
   );

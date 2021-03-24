@@ -7,6 +7,8 @@ import CheckoutForm from "../components/CheckoutForm/CheckoutForm";
 const CartContainer = () => {
   const { cart, emptyCart, buyNow } = useContext(CartContext);
 
+  console.log(cart);
+
   if (cart.length > 0) {
     return (
       <main className="container mx-auto py-12 full-width space-y-8 grid grid-cols-2 grid-rows-6">

@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router";
 import { getFirestore } from "../firebase";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { GlobalContext } from "./GlobalContext";
@@ -8,7 +9,7 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [storedCart, setStoredCart] = useLocalStorage("cart", []);
   const [cart, setCart] = useState(storedCart);
-
+  const history = useHistory();
   const { loading, setCartLength } = useContext(GlobalContext);
 
   //Comunicación con el localStorage
@@ -44,6 +45,8 @@ export const CartProvider = ({ children }) => {
         quantity: itemQuantity,
         price: itemToAdd.price,
       };
+
+      console.log(newElement);
 
       const newCart = [newElement, ...cart];
 
@@ -83,6 +86,8 @@ export const CartProvider = ({ children }) => {
       return acc.price * acc.quantity + cur.price * cur.quantity;
     });
 
+    console.log(buyTotal);
+
     const newBuy = { buyer: buyer, items: cart, date: date, total: buyTotal };
     emptyCart();
     checkOut(newBuy);
@@ -94,8 +99,25 @@ export const CartProvider = ({ children }) => {
       const db = getFirestore();
 
       const ordersCollection = db.collection("Orders");
-      ordersCollection.add(buyOrder).then(() => console.log("exito"));
+      ordersCollection.add(buyOrder).then(() => {
+        console.log("exito");
+        getBuyInfo(buyOrder);
+        history.push("/checkout");
+      });
     }
+  };
+
+  const [orderInfo, setOrderInfo] = useState();
+
+  //Devolver informacion de la compra
+  const getBuyInfo = (buyOrder) => {
+    setOrderInfo(buyOrder);
+  };
+
+  //limpiar informacion de la compra
+  const deleteBuyInfo = (buyOrder) => {
+    setOrderInfo();
+    history.push("/");
   };
 
   return (
@@ -106,6 +128,8 @@ export const CartProvider = ({ children }) => {
         deleteCartItem,
         emptyCart,
         buyNow,
+        orderInfo,
+        deleteBuyInfo,
       }}
     >
       {children}

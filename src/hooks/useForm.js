@@ -19,16 +19,10 @@ const useForm = (validate) => {
     });
   };
 
-  const handleSubmit = (cart) => {
+  const handleSubmit = () => {
     setErrors(validate(values));
   };
 
-  /* const valuesAreEmpty = !Object.values(values).some(
-    (x) => x !== null && x !== ""
-  );
-
-  const errorsIsEmpty = Object.keys(errors).length;
- */
   return {
     handleChange,
     handleSubmit,
